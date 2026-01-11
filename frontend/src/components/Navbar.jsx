@@ -19,9 +19,9 @@ const Navbar = () => {
   }
 
   return (
-    <div className=' py-10 flex justify-between items-center'>
+    <div className=' py-10 flex justify-between items-center '>
         <NavLink to='/'>
-          <img src={assets.logo} className='h-12 sm:h-15' alt="" />
+          <img src={assets.logo} className='h-12 sm:h-15 bg-white' alt="" />
 
         </NavLink>
 
@@ -42,6 +42,16 @@ const Navbar = () => {
                 <p>CONTACT</p>
                 <hr className='h-1 w-1/2 hidden' />
             </NavLink>
+            {/* Admin Panel Button */}
+              <a
+                  href="https://forever-admin-taupe-six.vercel.app/list"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col gap-2 items-center"
+              >
+                  <p>ADMIN PANEL</p>
+                  <hr className='h-1 w-1/2 hidden' />
+              </a>
         </ul>
 
         <div className='flex gap-5 sm:gap-7 items-center'>
@@ -77,6 +87,16 @@ const Navbar = () => {
                 <NavLink className='px-5 py-2' onClick={()=>setvisible(false)} to="/collection">COLLECTION</NavLink>
                 <NavLink className='px-5 py-2' onClick={()=>setvisible(false)} to="/about">ABOUT</NavLink>
                 <NavLink className='px-5 py-2' onClick={()=>setvisible(false)} to="/contact">CONTACT</NavLink>
+                {/* Admin Panel */}
+                  <a
+                      href="https://forever-admin-taupe-six.vercel.app/list"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setvisible(false)}
+                      className="px-5 py-2 text-gray-700"
+                  >
+                      ADMIN PANEL
+                  </a>
               </div>
           </div>
         </div>
