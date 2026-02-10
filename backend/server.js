@@ -7,6 +7,11 @@ import userRouter from "./routes/userRoute.js";
 import productRouter from "./routes/productRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // app config
 const app = express();
@@ -16,11 +21,7 @@ connectCloudinary();
 
 // middlewares
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://localhost:5173", "http://localhost:5175"],
-  }),
-);
+app.use(cors());
 
 // api endpoints
 app.use("/api/user", userRouter);
@@ -30,6 +31,14 @@ app.use("/api/order", orderRouter);
 
 app.get("/", (req, res) => {
   res.send("api working");
+});
+
+// Serve frontend
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.use("/admin", express.static(path.join(__dirname, "../admin/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
 app.listen(port, () => {

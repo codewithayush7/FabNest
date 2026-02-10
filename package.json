@@ -1,0 +1,8 @@
+{
+  "name": "fabnest-monolith",
+  "private": true,
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm install --prefix admin && npm run build --prefix frontend && npm run build --prefix admin",
+    "start": "node backend/server.js"
+  }
+}
