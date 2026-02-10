@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.use("/admin", express.static(path.join(__dirname, "../admin/dist")));
 
 // Admin SPA fallback
-app.get("/admin/*", (req, res) => {
+app.get(/^\/admin(\/.*)?$/, (req, res) => {
   res.sendFile(path.join(__dirname, "../admin/dist/index.html"));
 });
 
