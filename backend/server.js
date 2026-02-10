@@ -13,31 +13,44 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// app config
 const app = express();
 const port = process.env.PORT || 4000;
+
 connectDB();
 connectCloudinary();
 
-// middlewares
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5175",
+      "https://fabnest.onrender.com",
+    ],
+    credentials: true,
+  }),
+);
 
-// api endpoints
+// APIs
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
-// Serve frontend
+// Static files
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.use("/admin", express.static(path.join(__dirname, "../admin/dist")));
 
-// React Router fallback (Express 5 SAFE)
+// Admin SPA fallback
+app.get("/admin/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../admin/dist/index.html"));
+});
+
+// Frontend SPA fallback
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
 app.listen(port, () => {
-  console.log("server running on : " + port);
+  console.log("Server running on port", port);
 });
