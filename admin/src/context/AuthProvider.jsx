@@ -4,7 +4,7 @@ import { AuthContext } from "./AuthContext";
 import { toast } from "react-toastify";
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(localStorage.getItem("adminToken") || null);
+  const [user, setUser] = useState(!!localStorage.getItem("adminToken"));
 
   const login = async (email, password) => {
     try {
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
 
       if (res.data.success) {
         localStorage.setItem("adminToken", res.data.token);
-        setUser(res.data.token);
+        setUser(true);
         toast.success("Admin logged in");
         return true;
       } else {

@@ -54,7 +54,7 @@ const Add = () => {
       formData.append("category", category);
       formData.append("subCategory", subCategory);
       formData.append("bestseller", bestseller);
-      formData.append("sizes", sizes.join(","));
+      formData.append("sizes", JSON.stringify(sizes));
 
       images.forEach((img, index) => {
         if (img) formData.append(`image${index + 1}`, img);

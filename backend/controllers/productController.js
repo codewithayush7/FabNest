@@ -39,7 +39,8 @@ const addProduct = async (req, res) => {
       name,
       description,
       price: Number(price),
-      category,
+      category:
+        category.charAt(0).toUpperCase() + category.slice(1).toLowerCase(),
       subCategory,
       bestseller: bestseller === "true" ? true : false,
       sizes: Array.isArray(sizes)

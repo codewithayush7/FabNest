@@ -44,7 +44,9 @@ const List = () => {
       const res = await axios.delete(
         `${import.meta.env.VITE_BACKEND_URL}/api/product/remove/${id}`,
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+          },
         },
       );
       if (res.data.success) {

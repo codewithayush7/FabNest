@@ -39,7 +39,8 @@ const Orders = () => {
   // Handle order status update
   const statusHandler = async (newStatus, orderId) => {
     try {
-      const res = await axios.put(
+      const token = localStorage.getItem("adminToken");
+      const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/order/status`,
         { orderId, status: newStatus },
         {

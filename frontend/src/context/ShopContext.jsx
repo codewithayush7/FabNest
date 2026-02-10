@@ -9,15 +9,13 @@ export const ShopContext = createContext();
 const ShopContextProvider = (props) => {
   const currency = "$";
   const delivery_fee = 10;
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const backendUrl = "";
   const [Search, setSearch] = useState(" ");
   const [ShowSearch, setShowSearch] = useState(false);
   const [CartItem, setCartItem] = useState({});
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState("");
   const navigate = useNavigate();
-
-  console.log("Backend URL:", backendUrl);
 
   const addToCart = async (itemId, size) => {
     if (!size) {
@@ -44,7 +42,7 @@ const ShopContextProvider = (props) => {
       try {
         console.log("Token being sent:", token);
         let response = await axios.post(
-          backendUrl + "/api/cart/add",
+          "/api/cart/add",
           { itemId, size },
           { headers: { Authorization: `Bearer ${token}` } },
         );
@@ -84,7 +82,7 @@ const ShopContextProvider = (props) => {
     if (token) {
       try {
         await axios.post(
-          backendUrl + "/api/cart/update",
+          "/api/cart/update",
           { itemId, size, quantity },
           { headers: { Authorization: `Bearer ${token}` } },
         );
@@ -112,7 +110,7 @@ const ShopContextProvider = (props) => {
 
   const getProductsData = async () => {
     try {
-      const response = await axios.get(backendUrl + "/api/product/list");
+      const response = await axios.get("/api/product/list");
       console.log("Products from backend:", response.data.products);
       if (response.data.success) {
         setProducts(response.data.products);
@@ -128,7 +126,7 @@ const ShopContextProvider = (props) => {
   const getUserCart = async (token) => {
     try {
       const response = await axios.post(
-        backendUrl + "/api/cart/get",
+        "/api/cart/get",
         {},
         { headers: { Authorization: `Bearer ${token}` } },
       );
